@@ -12,7 +12,6 @@ public class ReelController : MonoBehaviour
     public float spinSpeed = 1500f;
     public float baseSpinDuration = 2f;
 
-    private bool isSpinning = false;
     private int totalSymbols;
 
     private void Start()

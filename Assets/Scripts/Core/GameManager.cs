@@ -28,6 +28,15 @@ public class GameManager : MonoBehaviour
     public Sprite LeverUpSprite;
     public Sprite leverDownSprite;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip leverSound;
+    [SerializeField] private AudioClip winSound;
+    [SerializeField] private AudioClip loseSound;
+
+    [Header("VFX")]
+    [SerializeField] ParticleSystem coinFountain;
+
     private void Start()
     {
         UpdateUI();
@@ -57,12 +66,12 @@ public class GameManager : MonoBehaviour
     {
         if(balanceText != null)
         {
-            balanceText.text = "Balance: " + currentbalance;
+            balanceText.text = currentbalance.ToString();
         }
 
         if(currentBetText != null)
         {
-            currentBetText.text = "Current Bet: " + currentBet;
+            currentBetText.text = currentBet.ToString();
         }
     }
 
@@ -131,19 +140,52 @@ public class GameManager : MonoBehaviour
         // baseSpinDuration (2f) + extraSpinTime(2.0f) + snap buffer (~1.0f) = 5 seconds
         yield return new WaitForSeconds(5f);
 
+        if(audioSource != null)
+        {
+            audioSource.Stop();
+            audioSource.loop = false;
+        }
+
         if(isWinner && winningIndex != -1)
         {
+            // Play the win Sound
+            if(audioSource != null && winSound != null)
+            {
+                audioSource.PlayOneShot(winSound);
+            }
+
             // Retrieve the data from the winning scriptableObject
             SlotSymbol winningSymbol = availableSymbols[winningIndex];
 
             // Calculate payout based on the bet and the symbol's multiplier
             int winAmount = currentBet * winningSymbol.payoutMultiplier;
+
+            // Save the old balance, calculate the new one, and start the ticking animation
+            int oldBalance = currentbalance;
             currentbalance += winAmount;
+
+            // Trigger the coin FOuntain
+            if(coinFountain != null)
+            {
+                coinFountain.Play();
+            }
+
+            // Start the visual ticker
+            StartCoroutine(AnimateBalanceCounter(oldBalance, currentbalance));
 
             Debug.Log($"Winner! Payout: {winAmount}G. New Balance: {currentbalance}G");
         }
+        else
+        {
+            // Play the lose Sound
+            if (audioSource != null && loseSound != null)
+            {
+                audioSource.PlayOneShot(loseSound);
+            }
 
-        UpdateUI();
+            UpdateUI();
+        }
+
         isSpinning = false;
 
         if (bettingPanel != null)
@@ -152,10 +194,42 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private IEnumerator AnimateBalanceCounter(int startAmount, int targetAmount)
+    {
+        float animationDuration = 2.0f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < animationDuration)
+        {
+            elapsedTime += Time.deltaTime;
+
+            // calculate the current number to display based on time
+            float t = elapsedTime / animationDuration;
+            int currentDisplayAmount = Mathf.RoundToInt(Mathf.Lerp(startAmount, targetAmount, t));
+
+            if(balanceText != null)
+            {
+                balanceText.text = currentDisplayAmount.ToString();
+
+            }
+            yield return null;
+        }
+
+        if(balanceText != null)
+        {
+            balanceText.text = targetAmount.ToString(); ;
+        }
+    }
+
     private IEnumerator AnimateLever()
     {
+        if (audioSource != null && leverSound != null)
+        {
+            audioSource.PlayOneShot(leverSound);
+        }
+
         // swap to the pulled down image
-        if(leverImage != null)
+        if (leverImage != null)
         {
             leverImage.sprite = leverDownSprite;
         }
