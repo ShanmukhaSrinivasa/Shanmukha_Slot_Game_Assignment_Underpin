@@ -699,10 +699,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 129778507}
   - {fileID: 1581160220}
   - {fileID: 1646401871}
   - {fileID: 791783204}
+  - {fileID: 129778507}
   m_Father: {fileID: 81047206}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
@@ -857,10 +857,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 851938508}
   - {fileID: 1443942005}
   - {fileID: 66320418}
   - {fileID: 1281850016}
+  - {fileID: 851938508}
   m_Father: {fileID: 81047206}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
@@ -1168,10 +1168,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1106347519}
   - {fileID: 2000633834}
   - {fileID: 1802464826}
   - {fileID: 1003054901}
+  - {fileID: 1106347519}
   m_Father: {fileID: 81047206}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
@@ -9179,6 +9179,22 @@ PrefabInstance:
       propertyPath: 'reels.Array.data[2]'
       value: 
       objectReference: {fileID: 829536822}
+    - target: {fileID: 7207150478531633667, guid: 00252df948af83544a508641f95ecd29, type: 3}
+      propertyPath: 'availableSymbols.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f51ad301c8d29f8429ca8e5214d2e46a, type: 2}
+    - target: {fileID: 7207150478531633667, guid: 00252df948af83544a508641f95ecd29, type: 3}
+      propertyPath: 'availableSymbols.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: baa73e5d6bb90ae4daa28f2fc525e263, type: 2}
+    - target: {fileID: 7207150478531633667, guid: 00252df948af83544a508641f95ecd29, type: 3}
+      propertyPath: 'availableSymbols.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 9a7233c1409cc5a4998879dc07a76a5e, type: 2}
+    - target: {fileID: 7207150478531633667, guid: 00252df948af83544a508641f95ecd29, type: 3}
+      propertyPath: 'availableSymbols.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 9953332871b561045a42f8653ad742bf, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
